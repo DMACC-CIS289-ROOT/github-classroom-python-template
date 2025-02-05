@@ -17,7 +17,7 @@ select = [
     # Pylint
     "PL",
 ]
-ignore = ["D211", "D212"]
+ignore = ["D203", "D211", "D212"]
 fixable = ["ALL"]
 unfixable = []
 
