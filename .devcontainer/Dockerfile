@@ -12,21 +12,31 @@ USER ${USER}
 ARG HOME="/home/${USER}"
 WORKDIR ${HOME}
 
+ENV BREW_PREFIX=/home/linuxbrew/.linuxbrew
+ENV PATH=${BREW_PREFIX}/sbin:${BREW_PREFIX}/bin:${PATH}
+COPY library-scripts/homebrew-debian.sh /tmp/library-scripts/
+RUN apt-get update && bash /tmp/library-scripts/homebrew-debian.sh
+
 ARG PYTHON_VERSION=3.11
 ENV PYENV_ROOT=${HOME}/.pyenv
 ARG PYENV_PATH="${PYENV_ROOT}/bin:${PYENV_ROOT}/shims"
 ARG PDM_PATH="${HOME}/.local/bin"
 ENV PATH="${PYENV_PATH}:${PDM_PATH}:$PATH"
 RUN set -x \
-    && curl http://pyenv.run | bash \
+    && curl -fsSL https://pyenv.run | bash \
+    && echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc \
+    && echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc \
     && echo 'eval "$(pyenv init -)"' >>${HOME}/.zshrc \
     && pyenv install -v ${PYTHON_VERSION} \
     && pyenv global ${PYTHON_VERSION}
+
+
 RUN set -x \
-&& git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv \
+&& brew install pyenv-virtualenv \
 && echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshrc 
-ARG ZSH_CUSTOM=${HOME}/.oh-my-zsh/custom
-RUN curl -sSL https://pdm.fming.dev/install-pdm.py | python - \
-    && mkdir ${ZSH_CUSTOM}/plugins/pdm \
-    && pdm completion zsh > ${ZSH_CUSTOM}/plugins/pdm/_pdm \
-    && sed -i "s|^plugins=(|&pdm |" ${HOME}/.zshrc
+
+# ARG ZSH_CUSTOM=${HOME}/.oh-my-zsh/custom
+# RUN curl -sSL https://pdm.fming.dev/install-pdm.py | python - \
+#     && mkdir ${ZSH_CUSTOM}/plugins/pdm \
+#     && pdm completion zsh > ${ZSH_CUSTOM}/plugins/pdm/_pdm \
+#     && sed -i "s|^plugins=(|&pdm |" ${HOME}/.zshrc
