@@ -1,0 +1,46 @@
+{
+    "build": { "dockerfile": "Dockerfile" },
+	"features": {
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {},
+        "ghcr.io/devcontainers/features/common-utils:2": {},
+        "ghcr.io/devcontainers/features/github-cli:1": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+                "dbaeumer.vscode-eslint",
+                "mads-hartmann.bash-ide-vscode",
+                "aaron-bond.better-comments",
+                "charliermarsh.ruff",
+                "christian-kohler.path-intellisense",
+                "davidanson.vscode-markdownlint",
+                "donjayamanne.python-environment-manager",
+                "editorconfig.editorconfig",
+                "GitHub.vscode-pull-request-github",
+                "ms-python.debugpy",
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "ms-toolsai.jupyter",
+                "ms-toolsai.jupyter-keymap",
+                "ms-toolsai.jupyter-renderers",
+                "ms-toolsai.vscode-jupyter-cell-tags",
+                "ms-vscode-remote.remote-containers",
+                "ms-vsliveshare.vsliveshare",
+                "njpwerner.autodocstring",
+                "oderwat.indent-rainbow",
+                "PKief.material-icon-theme",
+                "PKief.material-icon-theme",
+                "redhat.vscode-yaml",
+                "streetsidesoftware.code-spell-checker",
+                "VisualStudioExptTeam.intellicode-api-usage-examples",
+                "visualstudioexptteam.vscodeintellicode",
+                "vscode-icons-team.vscode-icons"
+			],
+            "settings": {
+              "editor.defaultFormatter": "esbenp.prettier-vscode",
+              "autoDocstring.docstringFormat": "google"
+            }
+		}
+	},
+	"postCreateCommand": "npm install -g @devcontainers/cli"
+}
