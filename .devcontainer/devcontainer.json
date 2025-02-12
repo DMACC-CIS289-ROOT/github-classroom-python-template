@@ -42,5 +42,5 @@
             }
 		}
 	},
-	"postCreateCommand": "pyenv shell 3.11 && pip install -r requirements.txt && pre-commit install-hooks",
+	"postCreateCommand": "pyenv exec pip install -r requirements.txt && pre-commit install-hooks",
 }
