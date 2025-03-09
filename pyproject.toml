@@ -6,6 +6,7 @@ build-backend = "hatchling.build"
 pythonpath = [
   ".", "src",
 ]
+addopts = "--cov=src/ --cov-config=.coveragerc --cov-report term-missing"
 
 [tool.ruff]
 line-length=120
