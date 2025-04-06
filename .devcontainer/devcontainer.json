@@ -49,5 +49,5 @@
             }
     }
   },
-	"postCreateCommand": "pyenv exec pip install -r requirements.txt && pre-commit install-hooks"
+	"postCreateCommand": "pyenv exec pip install --upgrade pip && pip install -r requirements.txt && pre-commit install-hooks"
 }
