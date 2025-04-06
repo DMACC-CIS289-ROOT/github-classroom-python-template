@@ -1,13 +1,8 @@
 {
-    "build": { "dockerfile": "Dockerfile" },
-	"features": {
-		"ghcr.io/devcontainers/features/docker-in-docker:2": {},
-        "ghcr.io/devcontainers/features/common-utils:2": {},
-        "ghcr.io/devcontainers/features/github-cli:1": {}
-	},
-	"customizations": {
-		"vscode": {
-			"extensions": [
+  "image": "ghcr.io/dmacc-cis289-spring-2025/example-devcontainer",
+  "customizations": {
+    "vscode": {
+      "extensions": [
                 "dbaeumer.vscode-eslint",
                 "mads-hartmann.bash-ide-vscode",
                 "aaron-bond.better-comments",
@@ -35,12 +30,24 @@
                 "VisualStudioExptTeam.intellicode-api-usage-examples",
                 "visualstudioexptteam.vscodeintellicode",
                 "vscode-icons-team.vscode-icons"
-			],
+      ],
             "settings": {
-              "editor.defaultFormatter": "esbenp.prettier-vscode",
+              "[python]": {
+                "editor.formatOnSaveMode": "file",
+                "editor.formatOnType": false,
+                // For formatting with Ruff install extension: https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff
+                // Then use 'charliermarsh.ruff' as below for editor.defaultFormatter:
+                "editor.formatOnSave": true,
+                "editor.codeActionsOnSave": {
+                  "source.fixAll": "explicit",
+                  "source.organizeImports": "explicit"
+                },
+                "editor.defaultFormatter": "charliermarsh.ruff"
+              },
+              "ruff.nativeServer": "on",
               "autoDocstring.docstringFormat": "google"
             }
-		}
-	},
-	"postCreateCommand": "pyenv exec pip install -r requirements.txt && pre-commit install-hooks",
+    }
+  },
+	"postCreateCommand": "pyenv exec pip install -r requirements.txt && pre-commit install-hooks"
 }
