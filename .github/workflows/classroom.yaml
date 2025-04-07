@@ -27,6 +27,7 @@ jobs:
     - name: Install Dependencies
       run: |
         pip install -r requirements.txt
+        pre-commit install
         pre-commit run --all-files
     - name: Pytest Run
       id: pytest-run
