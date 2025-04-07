@@ -10,13 +10,7 @@ permissions:
   contents: write
 jobs:
   run-autograding-tests:
-    runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/dmacc-cis289-spring-2025/github-classroom-python-template:latest
-      options: --user root
-      credentials:
-        username: ${{ github.actor }}
-        password: ${{ secrets.github_token }}
+    runs-on: ghcr.io/dmacc-cis289-spring-2025/github-classroom-python-template:latest
     if: github.actor != 'github-classroom[bot]'
     steps:
     - name: Checkout code
@@ -28,6 +22,7 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE
         ls -alh
+        pre-commit
         pre-commit run --all-files
     - name: Run Pytest
       run: |
