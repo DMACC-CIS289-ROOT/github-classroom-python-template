@@ -1,5 +1,11 @@
 {
-  "image": "ghcr.io/dmacc-cis289-spring-2025/github-classroom-python-template:latest",
+  "image": "ghcr.io/${localEnv:ORG_PACKAGE_REPO}/github-classroom-python-template:latest",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/common-utils:2": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
   "customizations": {
     "vscode": {
       "extensions": [

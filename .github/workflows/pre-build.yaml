@@ -4,7 +4,7 @@ on: # rebuild any PRs and main branch changes
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: dmacc-cis289-spring-2025/github-classroom-python-template
+  IMAGE_NAME: ${localEnv:ORG_PACKAGE_REPO}/github-classroom-python-template
 
 jobs:
   build:
@@ -17,7 +17,7 @@ jobs:
     steps:
 
       - name: Checkout (GitHub)
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2

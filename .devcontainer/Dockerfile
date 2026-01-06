@@ -21,7 +21,7 @@ RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/instal
     && echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/vscode/.zshrc \
     && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-ARG PYTHON_VERSION=3.11
+ARG PYTHON_VERSION=3.12
 ENV PYENV_ROOT=${HOME}/.pyenv
 ARG PYENV_PATH="${PYENV_ROOT}/bin:${PYENV_ROOT}/shims"
 ARG PDM_PATH="${HOME}/.local/bin"
