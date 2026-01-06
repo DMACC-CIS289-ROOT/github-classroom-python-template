@@ -9,7 +9,6 @@ permissions:
 jobs:
   initialize:
     runs-on: ubuntu-latest
-    if: github.actor != 'github-classroom[bot]'
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -33,24 +32,28 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-  formatting-check:
+  lint:
     needs: [initialize]
-    - name: Run pre-commit
-      run: |
-        pre-commit run --all-files
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Run pre-commit
+        run: |
+          pre-commit run --all-files
 
-    - name: Run Ruff Check
-      run: |
-        ruff check
+      - name: Cache pre-commit hooks
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pre-commit
+          key: ${{ runner.os }}-precommit-${{ hashFiles('.pre-commit-config.yaml') }}
 
-    - name: Cache pre-commit hooks
-      uses: actions/cache@v4
-      with:
-        path: ~/.cache/pre-commit
-        key: ${{ runner.os }}-precommit-${{ hashFiles('.pre-commit-config.yaml') }}
+      - name: Run Ruff Check
+        run: |
+          ruff check
 
-  pytest-check:
+  test:
     needs: [initialize]
-    - name: Run pytest
-      run: |
-        pytest -v
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run pytest
+        run: |
+          pytest -v
